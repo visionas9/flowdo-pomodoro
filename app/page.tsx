@@ -12,12 +12,17 @@ export default function Home() {
           </button>
         </div>
       </header>
+
       <div className="w-[75%] mx-auto border-b-2 border-darkdiv" />
-      <div>
+
+      <div
+        className="mt-15 mx-auto w-fit flex flex-col 
+      items-center bg-darkdiv py-3 px-5 rounded-xl md:"
+      >
         <h2>Set your timer:</h2>
         <div>
           {/*hardcoded for now */}
-          <p>25:00</p>
+          <p className="font-numbers text-9xl">25:00</p>
         </div>
       </div>
     </div>
