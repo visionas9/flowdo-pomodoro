@@ -25,6 +25,7 @@
   /* Start-stop button*/
   --color-start: #059669; /*start*/
   --color-stop: #dc2626; /*stop*/
+  --color-darkb-hover: #4a4a4a; /*hover for set work/break time buttons*/
 
   /*div rounded*/
   --radius-xl: 1rem;
