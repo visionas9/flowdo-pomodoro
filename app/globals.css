@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
 @theme {
+  /*---FONTS---*/
+  --font-quote: "Architects Daughter", sans-serif;
+  --font-main: "Chiron GoRound TC", sans-serif;
+  --font-numbers: "Montserrat Alternates", monospace;
 
+  /*Light theme*/
+  --color-lightb: #bbbdf6; /*light theme background*/
+  --color-lightdiv: #c7bce6; /*light theme divs */
+
+  /*Dark Theme*/
+  --color-darkb: #585858; /*Dark theme background*/
+  --color-darkdiv: #626262; /*Dark theme divs*/
+
+  /*Dark theme font colors*/
+  --color-mint-cream: #f2f7f2; /* Primary text */
+  --color-lighter-text: #a0a8a0; /* Secondary text, labels, dates */
+
+  /*Light theme font colors*/
+  --color-dark-text: #1a1a1a; /*Primary Text*/
 }
+
+
