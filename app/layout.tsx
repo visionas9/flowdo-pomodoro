@@ -1,4 +1,5 @@
-import "./globals.css";import {
+import "./globals.css";
+import {
   Architects_Daughter,
   Chiron_GoRound_TC,
   Montserrat_Alternates,
@@ -28,8 +29,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ArchitectsDaughter.variable}, ${ChironGoRoundTC.variable}, ${MontserratAlternates.variable}`}>
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={`${ArchitectsDaughter.variable}, ${ChironGoRoundTC.variable}, ${MontserratAlternates.variable}`}
+    >
+      <body className="bg-darkb">{children}</body>
     </html>
   );
 }

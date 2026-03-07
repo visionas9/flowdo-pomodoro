@@ -17,9 +17,10 @@
   /*Dark theme font colors*/
   --color-mint-cream: #f2f7f2; /* Primary text */
   --color-lighter-text: #a0a8a0; /* Secondary text, labels, dates */
+  --color-lighter: #d1d5db; /*Ligter text for dark mode*/
 
   /*Light theme font colors*/
   --color-dark-text: #1a1a1a; /*Primary Text*/
+
+  --radius-xl: 1rem;
 }
-
-
