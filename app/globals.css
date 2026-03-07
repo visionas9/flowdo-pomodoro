@@ -22,5 +22,10 @@
   /*Light theme font colors*/
   --color-dark-text: #1a1a1a; /*Primary Text*/
 
+  /* Start-stop button*/
+  --color-start: #059669; /*start*/
+  --color-stop: #dc2626; /*stop*/
+
+  /*div rounded*/
   --radius-xl: 1rem;
 }
