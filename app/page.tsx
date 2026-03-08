@@ -1,7 +1,6 @@
 import Header from "./components/header";
-import StartButton from "./components/StartButton";
 import Tasks from "./components/Tasks";
-import Timer from "./components/Timer";
+import Timer from "./components/Timer/Timer";
 import Quotes from "./components/Quotes";
 
 export default function Home() {
@@ -10,7 +9,6 @@ export default function Home() {
       <Header />
       <div className="w-[75%] mx-auto border-b-2 border-darkdiv" />
       <Timer />
-      <StartButton />
       <Tasks />
       <Quotes />
     </div>
