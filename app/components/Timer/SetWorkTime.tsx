@@ -4,31 +4,18 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 
 export default function SetWorkTime({
   setTimeLeft,
-  minutes,
-  seconds,
-  setMinutes,
-  setSeconds,
+  setWorkTime,
 }: {
   setTimeLeft: (value: number) => void;
-  minutes: number;
-  seconds: number;
-  setMinutes: (value: number) => void;
-  setSeconds: (value: number) => void;
+  setWorkTime: (value: number) => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [minutes, setMinutes] = useState(25);
+  const [seconds, setSeconds] = useState(0);
 
   function toggle() {
     setIsOpen((prev) => !prev);
   }
-
-  const timerSetPop = isOpen ? (
-    <div>
-      <p>time</p>
-      <button>confirm</button>
-    </div>
-  ) : (
-    "set work time"
-  );
 
   return (
     <div className="relative">
@@ -64,6 +51,7 @@ export default function SetWorkTime({
         active:translate-y-1 active:shadow-none shadow-md transition-all duration-100"
             onClick={() => {
               setTimeLeft(minutes * 60 + seconds);
+              setWorkTime(minutes * 60 + seconds);
               toggle();
             }}
           >

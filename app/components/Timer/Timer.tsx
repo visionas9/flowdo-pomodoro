@@ -5,20 +5,33 @@ import SetBreakTime from "./SetBreakTime";
 
 export default function Timer() {
   const [isRunning, setIsRunning] = useState(false);
-  const [minutes, setMinutes] = useState(25);
-  const [seconds, setSeconds] = useState(0);
   const [timeLeft, setTimeLeft] = useState(1500);
+  const [workTime, setWorkTime] = useState(1500);
+  const [breakTime, setBreakTime] = useState(300);
+  const [isBreak, setIsBreak] = useState(false);
 
   useEffect(() => {
-    const countdown =
-      isRunning && timeLeft >= 0
-        ? setInterval(() => {
-            setTimeLeft((prev) => prev - 1);
-          }, 1000)
-        : "";
+    if (!isRunning) return;
+
+    const countdown = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 0) {
+          if (!isBreak) {
+            setIsBreak(true);
+            setTimeLeft(breakTime);
+          } else {
+            setIsBreak(false);
+            setIsRunning(false);
+            setTimeLeft(workTime);
+          }
+          return prev;
+        }
+        return prev - 1;
+      });
+    }, 1000);
 
     return () => clearInterval(countdown);
-  }, [isRunning]);
+  }, [isRunning, isBreak]);
 
   function formattedTime() {
     const mins = Math.floor(timeLeft / 60);
@@ -37,14 +50,8 @@ export default function Timer() {
       items-center bg-darkdiv py-4 px-8 rounded-xl md:"
       >
         <div className="flex items-center justify-between gap-9 md:">
-          <SetWorkTime
-            setTimeLeft={setTimeLeft}
-            minutes={minutes}
-            seconds={seconds}
-            setMinutes={setMinutes}
-            setSeconds={setSeconds}
-          />
-          <SetBreakTime />
+          <SetWorkTime setTimeLeft={setTimeLeft} setWorkTime={setWorkTime} />
+          <SetBreakTime setBreakTime={setBreakTime} />
         </div>
         <div className="w-64 flex items-center justify-center">
           <p className="font-numbers text-9xl">{formattedTime()}</p>
