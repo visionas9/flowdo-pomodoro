@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 type TaskType = {
-  id: any;
+  id: number;
   text: string;
   num: number;
   isChecked: boolean;
@@ -12,34 +12,20 @@ export default function Tasks() {
   const [task, setTask] = useState("");
   const [taskList, setTaskList] = useState<TaskType[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
 
   function toggle() {
     setIsOpen((prev) => !prev);
   }
 
-  function toggleCheck() {
-    setIsChecked((prev) => !prev);
+  function toggleCheck(id: number) {
+    setTaskList((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, isChecked: !t.isChecked } : t)),
+    );
   }
 
-  const createTask = taskList.map((t, i) => (
-    <div
-      key={t.id}
-      className="w-full border-2  border-darkb rounded-xl 
-    flex items-center p-1"
-    >
-      <p>{t.num + 1}.</p>
-      <label htmlFor={`${t.id}`} className="flex flex-1">
-        {t.text}
-      </label>
-      <input
-        type="checkbox"
-        className="accent-start w-4 h-4 cursor-pointer"
-        id={t.id}
-        onClick={() => toggleCheck()}
-      />
-    </div>
-  ));
+  function removeTask(id: number) {
+    setTaskList((prev) => prev.filter((t) => t.id !== id));
+  }
 
   const saveTask = () => {
     if (!task) return;
@@ -49,6 +35,66 @@ export default function Tasks() {
     ]);
     setTask("");
   };
+
+  const activeTasks = taskList
+    .filter((t) => !t.isChecked)
+    .map((t) => (
+      <div
+        key={t.id}
+        className="w-full bg-darkb rounded-xl flex items-center gap-3 px-3 py-2"
+      >
+        <span className="text-lighter text-sm">{t.num + 1}.</span>
+        <label
+          htmlFor={`${t.id}`}
+          className="flex-1 text-mint-cream cursor-pointer"
+        >
+          {t.text}
+        </label>
+        <input
+          type="checkbox"
+          className="accent-start w-4 h-4 cursor-pointer"
+          id={`${t.id}`}
+          checked={t.isChecked}
+          onChange={() => toggleCheck(t.id)}
+        />
+        <button
+          onClick={() => removeTask(t.id)}
+          className="text-lighter hover:text-mint-cream cursor-pointer"
+        >
+          ✕
+        </button>
+      </div>
+    ));
+
+  const completedTasks = taskList
+    .filter((t) => t.isChecked)
+    .map((t) => (
+      <div
+        key={t.id}
+        className="w-full bg-darkb rounded-xl flex items-center gap-3 px-3 py-2 opacity-50"
+      >
+        <span className="text-lighter text-sm">{t.num + 1}.</span>
+        <label
+          htmlFor={`${t.id}`}
+          className="flex-1 text-mint-cream cursor-pointer line-through"
+        >
+          {t.text}
+        </label>
+        <input
+          type="checkbox"
+          className="accent-start w-4 h-4 cursor-pointer"
+          id={`${t.id}`}
+          checked={t.isChecked}
+          onChange={() => toggleCheck(t.id)}
+        />
+        <button
+          onClick={() => removeTask(t.id)}
+          className="text-lighter hover:text-mint-cream cursor-pointer"
+        >
+          ✕
+        </button>
+      </div>
+    ));
 
   return (
     <div className="mt-6 w-[90%] md:max-w-2xl mx-auto flex flex-col gap-3 bg-darkdiv py-4 px-5 rounded-xl">
@@ -62,10 +108,10 @@ export default function Tasks() {
       <div className="w-full border-b border-darkb" />
 
       <button
-        className={`w-full border-2 border-dashed border-darkb rounded-xl 
-    py-3 ${isOpen ? "flex flex-col items-center" : "flex items-center justify-center"} gap-2 
-    hover:bg-darkb transition-colors duration-200 cursor-pointer`}
-        onClick={() => toggle()}
+        className={`w-full border-2 border-dashed border-darkb rounded-xl py-3 
+        ${isOpen ? "flex flex-col items-center" : "flex items-center justify-center"} gap-2 
+        hover:bg-darkb transition-colors duration-200 cursor-pointer`}
+        onClick={toggle}
       >
         <div>
           <span className="text-xl">⊕</span>
@@ -78,9 +124,8 @@ export default function Tasks() {
           <input
             value={task}
             onChange={(e) => setTask(e.target.value)}
-            className=" bg-white flex-1 p-1 text-dark-text rounded-xl focus: outline-none"
+            className="bg-white flex-1 p-1 text-dark-text rounded-xl focus:outline-none"
             placeholder="presentation e.g."
-            required
           />
           <button
             className="bg-start px-2 rounded-xl cursor-pointer"
@@ -91,7 +136,15 @@ export default function Tasks() {
         </div>
       )}
 
-      {createTask}
+      {activeTasks}
+
+      {completedTasks.length > 0 && (
+        <>
+          <div className="w-full border-b border-darkb" />
+          <p className="text-lighter text-sm">Completed</p>
+          {completedTasks}
+        </>
+      )}
     </div>
   );
 }
