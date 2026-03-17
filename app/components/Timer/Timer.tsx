@@ -39,7 +39,7 @@ export default function Timer() {
     return `${mins}:${secs}`;
   }
 
-  function toggleIsRuning() {
+  function toggleIsRunning() {
     setIsRunning((prev) => !prev);
   }
 
@@ -63,7 +63,7 @@ export default function Timer() {
           <button
             className="py-2 px-12 rounded-xl cursor-pointer font-bold bg-stop
         active:translate-y-1 active:shadow-none shadow-md transition-all duration-100"
-            onClick={() => toggleIsRuning()}
+            onClick={() => toggleIsRunning()}
           >
             Stop
           </button>
@@ -71,7 +71,7 @@ export default function Timer() {
           <button
             className="py-2 px-12 rounded-xl cursor-pointer font-bold bg-start
         active:translate-y-1 active:shadow-none shadow-md transition-all duration-100"
-            onClick={() => toggleIsRuning()}
+            onClick={() => toggleIsRunning()}
           >
             Start
           </button>
