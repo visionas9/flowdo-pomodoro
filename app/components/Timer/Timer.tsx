@@ -64,7 +64,7 @@ export default function Timer() {
           <SetBreakTime setBreakTime={setBreakTime} />
         </div>
         <div className="w-64 flex items-center justify-center">
-          <p className="font-numbers text-9xl">{formattedTime()}</p>
+          <div className="font-numbers text-9xl">{formattedTime()}</div>
         </div>
       </div>
 
