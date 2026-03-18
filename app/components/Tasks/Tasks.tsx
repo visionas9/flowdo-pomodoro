@@ -1,17 +1,11 @@
 "use client";
-import { useState } from "react";
-
-type TaskType = {
-  id: number;
-  text: string;
-  num: number;
-  isChecked: boolean;
-};
+import { useState, useContext } from "react";
+import { Context } from "@/app/context";
 
 export default function Tasks() {
   const [task, setTask] = useState("");
-  const [taskList, setTaskList] = useState<TaskType[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const { taskList, setTaskList } = useContext(Context)!;
 
   function toggle() {
     setIsOpen((prev) => !prev);
@@ -124,6 +118,12 @@ export default function Tasks() {
           <input
             value={task}
             onChange={(e) => setTask(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                saveTask(); // your function here
+              }
+            }}
+            autoFocus
             className="bg-white flex-1 p-1 text-dark-text rounded-xl focus:outline-none"
             placeholder="presentation e.g."
           />

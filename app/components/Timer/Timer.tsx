@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { Context } from "@/app/context";
 import SetWorkTime from "./SetWorkTime";
 import SetBreakTime from "./SetBreakTime";
 
@@ -9,6 +10,7 @@ export default function Timer() {
   const [workTime, setWorkTime] = useState(1500);
   const [breakTime, setBreakTime] = useState(300);
   const [isBreak, setIsBreak] = useState(false);
+  const { saveSession, taskList } = useContext(Context)!;
 
   useEffect(() => {
     if (!isRunning) return;
@@ -26,6 +28,7 @@ export default function Timer() {
           }
           return prev;
         }
+
         return prev - 1;
       });
     }, 1000);
@@ -39,7 +42,14 @@ export default function Timer() {
     return `${mins}:${secs}`;
   }
 
+  const completedTasks = taskList.filter((t) => t.isChecked).map((t) => t.text);
+
   function toggleIsRunning() {
+    if (isRunning && workTime - timeLeft > 0) {
+      const actualElapsed = workTime - timeLeft;
+      console.log("saving session:", workTime - timeLeft, "seconds");
+      saveSession(actualElapsed, completedTasks);
+    }
     setIsRunning((prev) => !prev);
   }
 

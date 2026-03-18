@@ -5,6 +5,8 @@ import {
   Montserrat_Alternates,
 } from "next/font/google";
 
+import ContextProvider from "./context";
+
 const ArchitectsDaughter = Architects_Daughter({
   weight: "400",
   subsets: ["latin"],
@@ -33,7 +35,10 @@ export default function RootLayout({
       lang="en"
       className={`${ArchitectsDaughter.variable}, ${ChironGoRoundTC.variable}, ${MontserratAlternates.variable}`}
     >
-      <body className="bg-darkb">{children}</body>
+      <ContextProvider>
+        <body className="bg-darkb">{children}</body>
+      </ContextProvider>
+      
     </html>
   );
 }
