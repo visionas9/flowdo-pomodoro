@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { Context } from "@/app/context";
 
 export default function CompletedTasks() {
-  const { session } = useContext(Context)!;
+  const { session, setSession } = useContext(Context)!;
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
@@ -14,6 +14,9 @@ export default function CompletedTasks() {
     });
   };
 
+  function removeSession(index: number) {
+    setSession((prev: any) => prev.filter((_: any, i: number) => i !== index));
+  }
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-xl font-extrabold">Previous Sessions</h2>
@@ -31,7 +34,15 @@ export default function CompletedTasks() {
         >
           <div className="flex items-center justify-between">
             <p className="text-lighter text-sm">{formatDate(s.date)}</p>
-            <p className="font-bold">{Math.round(s.timeDone / 60)} min</p>
+            <div className="flex items-center gap-2">
+              <p className="font-bold">{Math.round(s.timeDone / 60)} min</p>
+              <button
+                onClick={() => removeSession(i)}
+                className="text-lighter hover:text-mint-cream cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
           </div>
 
           {s.tasksDone.length > 0 ? (
