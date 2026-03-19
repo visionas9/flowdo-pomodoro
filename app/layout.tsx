@@ -4,8 +4,8 @@ import {
   Chiron_GoRound_TC,
   Montserrat_Alternates,
 } from "next/font/google";
-import Header from "./components/header";
-
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import ContextProvider from "./context";
 
 const ArchitectsDaughter = Architects_Daughter({
@@ -39,7 +39,8 @@ export default function RootLayout({
       <ContextProvider>
         <body className="bg-darkb">
           <Header />
-          {children}
+          <main> {children}</main>
+          <Footer />
         </body>
       </ContextProvider>
     </html>

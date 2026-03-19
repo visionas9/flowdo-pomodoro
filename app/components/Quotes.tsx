@@ -1,16 +1,16 @@
+type Quote = {
+  q: string;
+  a: string;
+};
+
 export default async function Quotes() {
   const data = await fetch("https://zenquotes.io/api/random");
-  const posts = await data.json();
+  const posts: Quote[] = await data.json();
+
   return (
-    <div>
-      {posts.map((post: any) => (
-        <div
-          key={post.q}
-          className="text-center mt-10 w-[90%] md:max-w-2xl mx-auto flex flex-col gap-3 bg-darkdiv py-4 px-5 rounded-xl"
-        >
-          <p>"{post.q}"</p>
-        </div>
-      ))}
+    <div className="text-center mt-6 w-[90%] md:max-w-2xl mx-auto flex flex-col gap-3 bg-darkdiv py-4 px-4 rounded-xl">
+      <p className="text-mint-cream italic">"{posts[0].q}"</p>
+      <p className="text-lighter text-sm">— {posts[0].a}</p>
     </div>
   );
 }

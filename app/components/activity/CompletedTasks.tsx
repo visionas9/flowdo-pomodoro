@@ -1,6 +1,7 @@
 "use client";
 import { useContext } from "react";
 import { Context } from "@/app/context";
+import type { SessionType } from "@/app/types";
 
 export default function CompletedTasks() {
   const { session, setSession } = useContext(Context)!;
@@ -15,7 +16,7 @@ export default function CompletedTasks() {
   };
 
   function removeSession(index: number) {
-    setSession((prev: any) => prev.filter((_: any, i: number) => i !== index));
+    setSession((prev: SessionType[]) => prev.filter((_, i) => i !== index));
   }
   return (
     <div className="flex flex-col gap-4">

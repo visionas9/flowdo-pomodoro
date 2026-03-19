@@ -1,4 +1,3 @@
-import Header from "./components/header";
 import Tasks from "./components/Tasks/Tasks";
 import Timer from "./components/Timer/Timer";
 import Quotes from "./components/Quotes";

@@ -4,7 +4,11 @@ import { ContextType, SessionType, TaskType } from "@/app/types";
 
 const Context = createContext<ContextType | null>(null);
 
-export default function ContextProvider({ children }: { children: any }) {
+export default function ContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [session, setSession] = useState<SessionType[]>([]);
   const [taskList, setTaskList] = useState<TaskType[]>([]);
 

@@ -1,5 +1,5 @@
 export type ContextType = {
-  session: SessionType[] | any;
+  session: SessionType[];
   setSession: React.Dispatch<React.SetStateAction<SessionType[]>>;
   taskList: TaskType[];
   setTaskList: React.Dispatch<React.SetStateAction<TaskType[]>>;
