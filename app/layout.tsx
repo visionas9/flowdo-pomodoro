@@ -4,7 +4,7 @@ import {
   Chiron_GoRound_TC,
   Montserrat_Alternates,
 } from "next/font/google";
-import Header from "./components/Header";
+import Header from "./components/header";
 import Footer from "./components/Footer";
 import ContextProvider from "./context";
 
