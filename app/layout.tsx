@@ -4,9 +4,9 @@ import {
   Chiron_GoRound_TC,
   Montserrat_Alternates,
 } from "next/font/google";
-import Header from "./components/header";
 import Footer from "./components/Footer";
 import ContextProvider from "./context";
+import Header from "./components/Header";
 
 const ArchitectsDaughter = Architects_Daughter({
   weight: "400",
