@@ -44,9 +44,6 @@ const SimpleBarChart = () => {
     });
   }
 
-  console.log("weeklyData:", weeklyData);
-  console.log("sessions:", session);
-
   return (
     <BarChart
       style={{
@@ -65,11 +62,12 @@ const SimpleBarChart = () => {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="name" tick={{ fill: "#a0a8a0" }} />
       <YAxis
         width="auto"
         tickFormatter={(value) => `${value}m`}
         domain={[0, 60]}
+        tick={{ fill: "#a0a8a0" }}
       />
       <Tooltip />
       <Legend />
