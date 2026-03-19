@@ -29,10 +29,10 @@ const SimpleBarChart = () => {
       dayIndex: date.getDay(),
       minutes: 0,
     };
-  }).reverse();
+  });
 
   if (session && session.length > 0) {
-    session.forEach((session) => {
+    session.forEach((session: any) => {
       const date = new Date(session.date);
       const day = date.getDay();
 
