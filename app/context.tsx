@@ -23,7 +23,7 @@ export default function ContextProvider({ children }: { children: any }) {
   function saveSession(timeDone: number, tasksDone: string[]) {
     const newSession = {
       timeDone,
-      date: new Date().toLocaleDateString("en-GB"),
+      date: new Date().toISOString().split("T")[0],
       tasksDone,
     };
     setSession((prev) => [...prev, newSession]);

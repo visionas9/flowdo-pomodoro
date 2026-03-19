@@ -4,6 +4,7 @@ import {
   Chiron_GoRound_TC,
   Montserrat_Alternates,
 } from "next/font/google";
+import Header from "./components/header";
 
 import ContextProvider from "./context";
 
@@ -36,9 +37,11 @@ export default function RootLayout({
       className={`${ArchitectsDaughter.variable}, ${ChironGoRoundTC.variable}, ${MontserratAlternates.variable}`}
     >
       <ContextProvider>
-        <body className="bg-darkb">{children}</body>
+        <body className="bg-darkb">
+          <Header />
+          {children}
+        </body>
       </ContextProvider>
-      
     </html>
   );
 }
