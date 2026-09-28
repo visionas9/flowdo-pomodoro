@@ -9,7 +9,7 @@ import {
   Legend,
 } from "recharts";
 import { useContext } from "react";
-import { Context } from "@/app/context";
+import { Context, localDate } from "@/app/context";
 
 // #endregion
 const SimpleBarChart = () => {
@@ -20,29 +20,21 @@ const SimpleBarChart = () => {
 
   const today = new Date();
 
+  // The last seven days, oldest on the left. Matched by the full date, not the
+  // weekday — otherwise last Monday's minutes land on this Monday's bar.
   const weeklyData = Array.from({ length: 7 }, (_, i) => {
     const date = new Date(today);
-    date.setDate(today.getDate() - i);
+    date.setDate(today.getDate() - (6 - i));
+    const key = localDate(date);
+    const seconds = session
+      .filter((s) => s.date === key)
+      .reduce((sum, s) => sum + s.timeDone, 0);
 
     return {
       name: date.toLocaleDateString("en-US", { weekday: "short" }),
-      dayIndex: date.getDay(),
-      minutes: 0,
+      minutes: Math.round(seconds / 60),
     };
   });
-
-  if (session && session.length > 0) {
-    session.forEach((session: any) => {
-      const date = new Date(session.date);
-      const day = date.getDay();
-
-      const entry = weeklyData.find((d) => d.dayIndex === day);
-
-      if (entry) {
-        entry.minutes += Math.round(session.timeDone / 60);
-      }
-    });
-  }
 
   return (
     <BarChart
@@ -61,20 +53,23 @@ const SimpleBarChart = () => {
         bottom: 5,
       }}
     >
-      <CartesianGrid strokeDasharray="3 3" />
+      <CartesianGrid strokeDasharray="3 3" stroke="rgba(160,168,160,0.2)" />
       <XAxis dataKey="name" tick={{ fill: "#a0a8a0" }} />
       <YAxis
         width="auto"
         tickFormatter={(value) => `${value}m`}
-        domain={[0, 60]}
+        domain={[0, (max: number) => Math.max(60, max)]}
         tick={{ fill: "#a0a8a0" }}
       />
-      <Tooltip />
+      <Tooltip
+        contentStyle={{ background: "#2b2b2b", border: "none", borderRadius: 8 }}
+        cursor={{ fill: "rgba(255,255,255,0.05)" }}
+        formatter={(value) => [`${value} min`, "Focus"]}
+      />
       <Legend />
       <Bar
         dataKey="minutes"
         fill="#8884d8"
-        activeBar={{ fill: "pink", stroke: "blue" }}
         radius={[10, 10, 0, 0]}
       />
     </BarChart>

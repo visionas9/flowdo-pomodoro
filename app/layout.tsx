@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${ArchitectsDaughter.variable}, ${ChironGoRoundTC.variable}, ${MontserratAlternates.variable}`}
+      className={`${ArchitectsDaughter.variable} ${ChironGoRoundTC.variable} ${MontserratAlternates.variable}`}
     >
       <ContextProvider>
         <body className="bg-darkb">
