@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { clampTime } from "./clampTime";
 
 export default function SetWorkTime({
   setTimeLeft,
@@ -28,20 +29,26 @@ export default function SetWorkTime({
       </button>
 
       {isOpen && (
-        <div className="absolute w-34 top-full left-0 mt-2 bg-darkb p-3 rounded-xl">
-          <div className="flex items-center justify-center">
+        <div className="absolute z-10 w-40 top-full left-0 mt-2 flex flex-col items-center gap-3 bg-darkb p-3 rounded-xl shadow-lg">
+          <div className="flex items-center justify-center gap-1">
             <input
               type="number"
               placeholder="MM"
-              className="w-12"
+              aria-label="Minutes"
+              min={0}
+              max={180}
+              className="w-14 rounded-lg bg-darkdiv px-2 py-1 text-center text-mint-cream"
               value={minutes}
               onChange={(e) => setMinutes(Number(e.target.value))}
             />
             <span>:</span>
             <input
               type="number"
-              placeholder=" SS"
-              className="w-12"
+              placeholder="SS"
+              aria-label="Seconds"
+              min={0}
+              max={59}
+              className="w-14 rounded-lg bg-darkdiv px-2 py-1 text-center text-mint-cream"
               value={seconds}
               onChange={(e) => setSeconds(Number(e.target.value))}
             />
@@ -50,8 +57,9 @@ export default function SetWorkTime({
             className="py-1 px-3 rounded-xl cursor-pointer font-bold bg-start
         active:translate-y-1 active:shadow-none shadow-md transition-all duration-100"
             onClick={() => {
-              setTimeLeft(minutes * 60 + seconds);
-              setWorkTime(minutes * 60 + seconds);
+              const total = clampTime(minutes, seconds);
+              setTimeLeft(total);
+              setWorkTime(total);
               toggle();
             }}
           >
