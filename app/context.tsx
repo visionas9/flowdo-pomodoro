@@ -5,8 +5,8 @@ import { ContextType, SessionType, TaskType } from "@/app/types";
 const Context = createContext<ContextType | null>(null);
 
 // The local day: toISOString is UTC, which is still yesterday just after midnight in Warsaw.
-function localDate() {
-  const d = new Date();
+export function localDate(date = new Date()) {
+  const d = date;
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 

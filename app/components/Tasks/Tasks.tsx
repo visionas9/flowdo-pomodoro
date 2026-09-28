@@ -22,25 +22,26 @@ export default function Tasks() {
   }
 
   const saveTask = () => {
-    if (!task) return;
+    if (!task.trim()) return;
     setTaskList((prev) => [
       ...prev,
-      { id: Date.now(), text: task, num: taskList.length, isChecked: false },
+      { id: Date.now(), text: task.trim(), num: taskList.length, isChecked: false },
     ]);
     setTask("");
   };
 
+  // Numbered by position in the list, so the numbers stay 1, 2, 3 after a removal.
   const activeTasks = taskList
     .filter((t) => !t.isChecked)
-    .map((t) => (
+    .map((t, i) => (
       <div
         key={t.id}
         className="w-full bg-darkb rounded-xl flex items-center gap-3 px-3 py-2"
       >
-        <span className="text-lighter text-sm">{t.num + 1}.</span>
+        <span className="text-lighter text-sm">{i + 1}.</span>
         <label
           htmlFor={`${t.id}`}
-          className="flex-1 text-mint-cream cursor-pointer"
+          className="flex-1 text-mint-cream cursor-pointer break-words"
         >
           {t.text}
         </label>
@@ -53,6 +54,7 @@ export default function Tasks() {
         />
         <button
           onClick={() => removeTask(t.id)}
+          aria-label={`Remove ${t.text}`}
           className="text-lighter hover:text-mint-cream cursor-pointer"
         >
           ✕
@@ -67,10 +69,9 @@ export default function Tasks() {
         key={t.id}
         className="w-full bg-darkb rounded-xl flex items-center gap-3 px-3 py-2 opacity-50"
       >
-        <span className="text-lighter text-sm">{t.num + 1}.</span>
         <label
           htmlFor={`${t.id}`}
-          className="flex-1 text-mint-cream cursor-pointer line-through"
+          className="flex-1 text-mint-cream cursor-pointer line-through break-words"
         >
           {t.text}
         </label>
@@ -83,6 +84,7 @@ export default function Tasks() {
         />
         <button
           onClick={() => removeTask(t.id)}
+          aria-label={`Remove ${t.text}`}
           className="text-lighter hover:text-mint-cream cursor-pointer"
         >
           ✕
@@ -91,12 +93,9 @@ export default function Tasks() {
     ));
 
   return (
-    <div className="mt-6 w-[90%] md:max-w-2xl mx-auto flex flex-col gap-3 bg-darkdiv py-4 px-5 rounded-xl">
+    <div className="mt-6 w-full max-w-md mx-auto flex flex-col gap-3 bg-darkdiv py-4 px-5 rounded-xl">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-lg">Tasks</h2>
-        <button className="bg-darkb p-2 rounded-lg hover:bg-darkb-hover transition-colors duration-200 cursor-pointer">
-          <span className="text-xl leading-none">⋮</span>
-        </button>
       </div>
 
       <div className="w-full border-b border-darkb" />
@@ -114,21 +113,22 @@ export default function Tasks() {
       </button>
 
       {isOpen && (
-        <div className="w-[90%] flex gap-2 m-auto">
+        <div className="w-full flex gap-2">
           <input
             value={task}
             onChange={(e) => setTask(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                saveTask(); // your function here
+                saveTask();
               }
             }}
             autoFocus
-            className="bg-white flex-1 p-1 text-dark-text rounded-xl focus:outline-none"
-            placeholder="presentation e.g."
+            className="min-w-0 flex-1 bg-darkb px-3 py-2 text-mint-cream rounded-xl outline-none border border-transparent focus:border-start"
+            placeholder="e.g. Finish the presentation"
+            aria-label="New task"
           />
           <button
-            className="bg-start px-2 rounded-xl cursor-pointer"
+            className="bg-start px-4 rounded-xl cursor-pointer font-bold"
             onClick={saveTask}
           >
             Add
